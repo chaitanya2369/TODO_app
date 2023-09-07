@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>  
+    <div class="container">
+        <h1 style="text-align: center;">To Do App</h1>
+        <div class="todo-form">
+            <form method="post" action="/create-task">
+                <div id="task-desc">
+                    <label for="description"><b>DESCRIPTION</b></label><br>
+                    <input type="text" id="description" name="description" placeholder="What do you need to do?" required>
+                </div>
+                <div class="cat-date">
+                    <div class="category">
+                        <label for="category"><b>CATEGORY</b></label><br>
+                        <select class="category-selector" name = "category" required>
+                            <option value="personal">Personal</option>
+                            <option value="school">School</option>
+                            <option value="work">Work</option>
+                            <option value="cleaning">Cleaning</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="date">
+                        <label for="date">DUE DATE</label><br>
+                        <input type="date" name="date" required>
+                    </div>
+                </div>
+                <div class="btns">
+                    <button type="submit" id="addtask-btn"><i class="fa fa-add"></i> ADD TASK</button>
+                    <button id="deletetask-btn" onclick="document.querySelector('.display-tasks form').submit();">
+                        <i class="fa fa-trash-can"></i> DELETE TASKS
+                    </button>
+                </div>
+            </form> 
+        </div>
+        <div class="display-tasks">
+            <form action="/delete-task" method="post">
+                <% for (let i of task_list) { %>
+                    <div id="display-container">
+                        <div class="displaying">
+                            <input type="checkbox" name="taskIds" value="<%=i._id%>">
+                            <div id="display-desc"><%= i.description %></div>
+                            <div id="display-category"><span style="background-color: rgb(7, 57, 57); padding: 15px; margin-top: 15px;"><%= i.category %></span></div>
+                        </div>
+                        <p id="display-date"><%= i.date %></p>
+                        <%}%>
+                    </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
